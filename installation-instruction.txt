@@ -5,5 +5,6 @@ Project to run requires:
 4. Glassfish (Full platform 4.1.1)
 5. Git (https://git-scm.com/)
 
-Clone repository from:
+Clone repository using:
+git clone git@github.com:BartlomiejZalas/quizail.git
 
