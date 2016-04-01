@@ -4,7 +4,7 @@ import javax.ejb.Remote;
 import java.util.List;
 
 @Remote
-public interface QuizEJBRemote {
+public interface QuizDAORemote {
     List<Quiz> findQuizzes();
 
     Quiz findQuizById(Long id);

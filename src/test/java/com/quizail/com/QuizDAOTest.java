@@ -14,7 +14,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
 @RunWith(MockitoJUnitRunner.class)
-public class QuizEJBTest {
+public class QuizDAOTest {
 
     private static final Quiz QUIZ = new Quiz("Quiz1", "description");
     private static final Long ID = 8l;
@@ -24,22 +24,22 @@ public class QuizEJBTest {
     @Mock
     private TypedQuery<Quiz> typedQuery;
 
-    private QuizEJB quizEJB;
+    private QuizDAO quizDAO;
 
     @Before
     public void setUp() throws Exception {
-        quizEJB = new QuizEJB(entityManager);
+        quizDAO = new QuizDAO(entityManager);
     }
 
     @Test
     public void noArgConstructor_shouldBePresentInEJB() throws Exception {
-        QuizEJB quizEJB = new QuizEJB();
-        assertNotNull(quizEJB);
+        QuizDAO quizDAO = new QuizDAO();
+        assertNotNull(quizDAO);
     }
 
     @Test
     public void createQuiz_shouldCallPersistOperation() throws Exception {
-        quizEJB.createQuiz(QUIZ);
+        quizDAO.createQuiz(QUIZ);
 
         then(entityManager).should().persist(QUIZ);
     }
@@ -48,7 +48,7 @@ public class QuizEJBTest {
     public void deleteQuiz_shouldCallDeleteOperation() throws Exception {
         given(entityManager.merge(QUIZ)).willReturn(QUIZ);
 
-        quizEJB.deleteQuiz(QUIZ);
+        quizDAO.deleteQuiz(QUIZ);
 
         then(entityManager).should().remove(QUIZ);
     }
@@ -57,7 +57,7 @@ public class QuizEJBTest {
     public void findQuizzes_shouldCallNamedQueryForQuizClass() throws Exception {
         given(entityManager.createNamedQuery("findAllQuizzes", Quiz.class)).willReturn(typedQuery);
 
-        quizEJB.findQuizzes();
+        quizDAO.findQuizzes();
 
         then(entityManager).should().createNamedQuery("findAllQuizzes", Quiz.class);
         then(typedQuery).should().getResultList();
@@ -65,7 +65,7 @@ public class QuizEJBTest {
 
     @Test
     public void findQuizById_shouldCallFind() throws Exception {
-        quizEJB.findQuizById(ID);
+        quizDAO.findQuizById(ID);
 
         then(entityManager).should().find(Quiz.class, ID);
     }
@@ -73,7 +73,7 @@ public class QuizEJBTest {
 
     @Test
     public void updateQuiz_shouldCallMerge() throws Exception {
-        quizEJB.updateQuiz(QUIZ);
+        quizDAO.updateQuiz(QUIZ);
 
         then(entityManager).should().merge(QUIZ);
     }

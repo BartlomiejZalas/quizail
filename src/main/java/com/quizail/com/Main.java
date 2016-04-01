@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 
 public class Main {
     @EJB
-    private static QuizEJBRemote quizEJB;
+    private static QuizDAORemote quizEJB;
 
     public static void main(String[] args) {
         Quiz quiz = new Quiz();

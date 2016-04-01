@@ -9,15 +9,15 @@ import java.util.List;
 
 @Stateless
 @LocalBean
-public class QuizEJB implements QuizEJBRemote {
+public class QuizDAO implements QuizDAORemote {
 
     @PersistenceContext(unitName = "mainDatabase")
     private EntityManager entityManager;
 
-    public QuizEJB() {
+    public QuizDAO() {
     }
 
-    public QuizEJB(EntityManager entityManager) {
+    public QuizDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
