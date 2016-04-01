@@ -9,9 +9,9 @@ public interface QuizDAORemote {
 
     Quiz findQuizById(Long id);
 
-    Quiz createQuiz(Quiz book);
+    Quiz createQuiz(Quiz quiz);
 
-    void deleteQuiz(Quiz book);
+    void deleteQuiz(Quiz quiz);
 
-    Quiz updateQuiz(Quiz book);
+    Quiz updateQuiz(Quiz quiz);
 }
