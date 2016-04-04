@@ -5,22 +5,6 @@
 http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               version="2.0">
 
-    <navigation-rule>
-        <from-view-id>/newQuiz.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/listQuizzes.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/listQuizzes.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>back</from-outcome>
-            <to-view-id>/listQuizzes.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
     <managed-bean>
         <managed-bean-name>quizController</managed-bean-name>
         <managed-bean-class>com.quizail.com.QuizController</managed-bean-class>

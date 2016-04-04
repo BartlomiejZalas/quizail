@@ -1,6 +1,7 @@
 package com.quizail.com;
 
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
 import java.util.ArrayList;
@@ -13,6 +14,11 @@ public class QuizController {
     private QuizDAO quizDAO;
     private Quiz quiz = new Quiz();
     private List<Quiz> quizList = new ArrayList<>();
+
+    @PostConstruct
+    public void init() {
+        quizList = quizDAO.findQuizzes();
+    }
 
     public String doCreateQuiz() {
         quiz = quizDAO.createQuiz(quiz);
