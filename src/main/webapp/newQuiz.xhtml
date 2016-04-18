@@ -10,11 +10,11 @@
     <h:form>
         <h:panelGrid columns="2">
             <h:outputLabel value="Title :"/>
-            <h:inputText value="#{quizController.quiz.title}"/>
+            <h:inputText value="#{quizBackendBean.quiz.title}"/>
             <h:outputLabel value="Description : "/>
-            <h:inputTextarea value="#{quizController.quiz.description}" cols="20" rows="5"/>
+            <h:inputTextarea value="#{quizBackendBean.quiz.description}" cols="20" rows="5"/>
         </h:panelGrid>
-        <h:commandButton value="Create a quiz" action="#{quizController.doCreateQuiz}"/>
+        <h:commandButton value="Create a quiz" action="#{quizBackendBean.doCreateQuiz}"/>
     </h:form>
 </ui:define>
 

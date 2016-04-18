@@ -9,21 +9,14 @@ import java.util.List;
 
 @ManagedBean
 @RequestScoped
-public class QuizController {
+public class AttemptBackendBean {
     @EJB
     private QuizDAO quizDAO;
-    private Quiz quiz = new Quiz();
     private List<Quiz> quizList = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         quizList = quizDAO.findQuizzes();
-    }
-
-    public String doCreateQuiz() {
-        quiz = quizDAO.createQuiz(quiz);
-        quizList = quizDAO.findQuizzes();
-        return "listQuizzes.xhtml";
     }
 
     public QuizDAO getQuizDAO() {
@@ -32,14 +25,6 @@ public class QuizController {
 
     public void setQuizDAO(QuizDAO quizDAO) {
         this.quizDAO = quizDAO;
-    }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
     }
 
     public List<Quiz> getQuizList() {

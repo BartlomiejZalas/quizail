@@ -6,8 +6,13 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               version="2.0">
 
     <managed-bean>
-        <managed-bean-name>quizController</managed-bean-name>
-        <managed-bean-class>com.quizail.com.QuizController</managed-bean-class>
+        <managed-bean-name>quizBackendBean</managed-bean-name>
+        <managed-bean-class>com.quizail.com.QuizBackendBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>attemptBackendBean</managed-bean-name>
+        <managed-bean-class>com.quizail.com.AttemptBackendBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>
