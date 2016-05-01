@@ -2,6 +2,7 @@ package com.quizail.com;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @NamedQuery(name = "findAllQuizzes", query = "SELECT q FROM Quiz q")
@@ -9,10 +10,17 @@ public class Quiz implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(nullable = false)
     private String title;
+
     @Column(length = 2000)
     private String description;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
+    private int time;
 
     public Quiz() {
     }
@@ -44,5 +52,21 @@ public class Quiz implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getTime() {
+        return time;
     }
 }
