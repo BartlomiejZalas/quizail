@@ -3,7 +3,10 @@ package com.quizail.com;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +18,23 @@ public class QuizBackendBean {
     private Quiz quiz = new Quiz();
     private List<Quiz> quizList = new ArrayList<>();
 
+    private UIComponent createButton;
+
+
     @PostConstruct
     public void init() {
         quizList = quizDAO.findQuizzes();
     }
 
     public String doCreateQuiz() {
-        quiz = quizDAO.createQuiz(quiz);
-        quizList = quizDAO.findQuizzes();
+        try {
+            quiz = quizDAO.createQuiz(quiz);
+            quizList = quizDAO.findQuizzes();
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage(e.getLocalizedMessage());
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(createButton.getClientId(context), message);
+        }
         return "listQuizzes.xhtml";
     }
 
