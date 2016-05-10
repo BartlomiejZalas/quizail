@@ -1,0 +1,73 @@
+***************************************
+Project to run requires
+***************************************
+1. Java JDK (1.8) - http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+2. Apache Maven (3.3.3) - https://maven.apache.org/
+3. Postgres (9.5) with pgAdmin III (http://www.postgresql.org/, http://www.pgadmin.org/) 
+4. Glassfish (Full platform 4.1.1)
+5. Git (https://git-scm.com/)
+
+***************************************
+Clone
+***************************************
+Clone repository using:
+git clone git@github.com:BartlomiejZalas/quizail.git
+
+***************************************
+Build
+***************************************
+Build application using maven:
+1. Go to cloned project directory when pom file is located
+2. Run "mvn clean install" using command line (or use your IDE)
+3. In target directory there should be generated .war file
+
+***************************************
+Start glassfish
+***************************************
+Run glassfish server using command (beeing in glassfish/bin directory):
+asadmin start-domain
+
+
+Next steps assume that you have postgres installed and database created (check if database is visible in pgAdminIII if you are not sure xD)
+
+***************************************
+Configure JDBC
+***************************************
+1. Copy file postgresql-9.4.1208.jre6.jar from this installation (this) directory to glassfish/domains/domain1/lib
+2. Go to: http://localhost:4848/ -> JDBC -> JDBC Connection Pools
+3. Create new CP with following data:
+
+Pool Name:PostgresPool
+Resource Type: javax.sql.ConnectionPoolDataSource
+Datasource Classname: org.postgresql.ds.PGConnectionPoolDataSource
+
+Additional Parameters:
+user: [your postgres user]
+password: [your postgres password]
+portNumber: 5432
+databaseName: [your postgres database name]
+serverName: localhost
+connectionAttributes: ;create=true
+
+4. Go to JDBC Resources and create new resource using following data:
+JNDI Name: jdbc/postgres
+Pool Name: PostgresPool
+
+***************************************
+Deploy Application
+***************************************
+1. Go to Applications -> Deploy
+2. Select .war file from target directory
+3. Click OK
+4. Application should be deployed and visible on the list of applications
+
+Go to http://localhost:8080/webapp-1.0/mainPageStudent.faces or http://localhost:8080/webapp-1.0/mainPage.faces
+you should see front page of application.
+
+
+Good job! Your application is deployed and ready to development.
+Remember to redeploy (Build application using maven and Deploy Application steps) application after every change in source code to see changes on the server.
+
+
+
+
