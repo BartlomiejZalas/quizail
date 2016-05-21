@@ -1,6 +1,6 @@
 package com.quizali.com.web;
 
-import com.quizali.com.dao.QuizDAO;
+import com.quizail.com.logic.QuizEJBRemote;
 import com.quizali.com.domain.Quiz;
 
 import javax.annotation.ManagedBean;
@@ -13,21 +13,23 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class AttemptBackendBean {
+
     @EJB
-    private QuizDAO quizDAO;
+    private QuizEJBRemote quizEJB;
+
     private List<Quiz> quizList = new ArrayList<>();
 
     @PostConstruct
     public void init() {
-        quizList = quizDAO.findQuizzes();
+        quizList = quizEJB.getQuizzes();
     }
 
-    public QuizDAO getQuizDAO() {
-        return quizDAO;
+    public QuizEJBRemote getQuizEJBRemote() {
+        return quizEJB;
     }
 
-    public void setQuizDAO(QuizDAO quizDAO) {
-        this.quizDAO = quizDAO;
+    public void setQuizEJBRemote(QuizEJBRemote quizDAO) {
+        this.quizEJB = quizDAO;
     }
 
     public List<Quiz> getQuizList() {

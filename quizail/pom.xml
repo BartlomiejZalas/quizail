@@ -11,6 +11,7 @@
         <module>quizail-web</module>
         <module>quizail-dao</module>
         <module>quizail-ear</module>
+        <module>quizail-logic</module>
     </modules>
 
     <build>

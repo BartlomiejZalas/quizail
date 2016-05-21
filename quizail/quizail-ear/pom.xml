@@ -25,6 +25,12 @@
             <version>1.0</version>
             <type>ejb</type>
         </dependency>
+        <dependency>
+            <groupId>com.quizail.com</groupId>
+            <artifactId>quizail-logic</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -52,6 +58,11 @@
                             <groupId>com.quizail.com</groupId>
                             <artifactId>quizail-dao</artifactId>
                             <bundleFileName>quizail.dao.jar</bundleFileName>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>com.quizail.com</groupId>
+                            <artifactId>quizail-logic</artifactId>
+                            <bundleFileName>quizail.logic.jar</bundleFileName>
                         </ejbModule>
                     </modules>
                     <displayName>Quizail Application</displayName>
