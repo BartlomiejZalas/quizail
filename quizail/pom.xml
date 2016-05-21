@@ -12,6 +12,7 @@
         <module>quizail-dao</module>
         <module>quizail-ear</module>
         <module>quizail-logic</module>
+        <module>end-to-end-test</module>
     </modules>
 
     <build>
