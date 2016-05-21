@@ -7,12 +7,12 @@ http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 
     <managed-bean>
         <managed-bean-name>quizBackendBean</managed-bean-name>
-        <managed-bean-class>com.quizali.com.QuizBackendBean</managed-bean-class>
+        <managed-bean-class>com.quizali.com.web.QuizBackendBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>attemptBackendBean</managed-bean-name>
-        <managed-bean-class>com.quizali.com.AttemptBackendBean</managed-bean-class>
+        <managed-bean-class>com.quizali.com.web.AttemptBackendBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 </faces-config>

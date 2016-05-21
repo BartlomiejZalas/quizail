@@ -1,4 +1,4 @@
-package com.quizali.com;
+package com.quizali.com.web;
 
 import com.quizali.com.dao.QuizDAO;
 import com.quizali.com.domain.Quiz;
