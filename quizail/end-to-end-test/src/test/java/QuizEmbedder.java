@@ -54,7 +54,8 @@ public class QuizEmbedder extends Embedder {
         StoryReporterBuilder storyReporterBuilder = new StoryReporterBuilder();
         storyReporterBuilder.withDefaultFormats();
         storyReporterBuilder.withViewResources(viewResources);
-        storyReporterBuilder.withFormats(Format.CONSOLE, Format.TXT, Format.HTML);
+        storyReporterBuilder.withFormats(Format.CONSOLE, Format.HTML);
+        storyReporterBuilder.withRelativeDirectory("../quizail/end-to-end-test/target/report");
         return storyReporterBuilder;
     }
 
