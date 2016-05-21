@@ -10,7 +10,7 @@
     <artifactId>quizail-ear</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>ear</packaging>
-    <name>quizail-ear</name>
+    <name>Quizail - EAR Module</name>
 
     <dependencies>
         <dependency>

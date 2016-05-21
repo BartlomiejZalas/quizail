@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>quizail</artifactId>
     <packaging>pom</packaging>
-    <name>quizail</name>
+    <name>Quizail</name>
 
     <modules>
         <module>quizail-web</module>

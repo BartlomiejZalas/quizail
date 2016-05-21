@@ -10,7 +10,7 @@
     <artifactId>quizail-web</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>quizail-web</name>
+    <name>Quizail - Web Module</name>
 
     <dependencies>
         <dependency>
