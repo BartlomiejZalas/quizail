@@ -1,4 +1,7 @@
-package com.quizail.com;
+package com.quizali.com;
+
+import com.quizali.com.dao.QuizDAO;
+import com.quizali.com.domain.Quiz;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;

@@ -1,4 +1,4 @@
-package com.quizail.com;
+package com.quizali.com.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

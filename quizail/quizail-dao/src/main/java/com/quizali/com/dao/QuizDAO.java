@@ -1,4 +1,6 @@
-package com.quizail.com;
+package com.quizali.com.dao;
+
+import com.quizali.com.domain.Quiz;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
