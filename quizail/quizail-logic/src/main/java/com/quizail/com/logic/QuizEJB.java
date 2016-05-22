@@ -29,4 +29,9 @@ public class QuizEJB implements QuizEJBRemote {
     public Quiz createQuiz(Quiz quiz) {
         return quizDAO.createQuiz(quiz);
     }
+
+    @Override
+    public void removeQuiz(Quiz quiz) {
+        quizDAO.deleteQuiz(quiz);
+    }
 }

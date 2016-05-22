@@ -10,4 +10,5 @@ public interface QuizEJBRemote {
     List<Quiz> getQuizzes();
     Quiz getQuiz(Long id);
     Quiz createQuiz(Quiz quiz);
+    void removeQuiz(Quiz quiz);
 }

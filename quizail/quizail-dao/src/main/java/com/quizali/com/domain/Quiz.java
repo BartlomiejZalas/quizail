@@ -14,20 +14,24 @@ public class Quiz implements Serializable {
     @Column(nullable = false)
     private String title;
 
-    @Column(length = 2000)
+    @Column(length = 2000, nullable = false)
     private String description;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    @Column(nullable = false)
     private int time;
 
     public Quiz() {
     }
 
-    public Quiz(String title, String description) {
+    public Quiz(String title, String description, Date date, int time) {
         this.title = title;
         this.description = description;
+        this.date = date;
+        this.time = time;
     }
 
     public Long getId() {
