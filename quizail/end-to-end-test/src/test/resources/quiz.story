@@ -1,5 +1,5 @@
-Scenario:  Test
+Scenario:  Quiz management module test
 
-Given a 5 and 4 numbers
-When I add them
-Then the sum should be 9
+Given quiz service
+When I get quizzes
+Then there should be 1

@@ -6,9 +6,10 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>end-to-end-tests</artifactId>
     <packaging>jar</packaging>
+
+    <name>Quizail - End to end tests</name>
 
     <build>
         <plugins>
@@ -48,5 +49,29 @@
             <artifactId>jbehave-core</artifactId>
             <version>4.0.5</version>
         </dependency>
+        <dependency>
+            <groupId>com.quizail.com</groupId>
+            <artifactId>quizail-logic</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.main.extras</groupId>
+            <artifactId>glassfish-embedded-web</artifactId>
+            <version>4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.extras</groupId>
+            <artifactId>appserv-rt</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.main.appclient</groupId>
+            <artifactId>gf-client</artifactId>
+            <version>4.1</version>
+        </dependency>
+
     </dependencies>
 </project>
