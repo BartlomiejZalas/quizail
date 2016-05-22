@@ -1,14 +1,12 @@
 Narrative: US001 Quiz Management
 
 Scenario: US001 Quiz Management - Add Quiz
-
 Given persisted quiz with title: Quiz1 and description: description1 and date: 11/10/2010 and time: 30
 When quiz is added
 Then there should be quiz with title: Quiz1 and description: description1 and date: 11/10/2010 and time: 30 in the system
 Then teardown - remove added quiz
 
 Scenario: US001 Quiz Management - Delete Quiz
-
 Given persisted quiz with title: Quiz2 and description: description2 and date: 12/10/2010 and time: 60
 When this quiz is deleted
 Then this quiz should be removed from system
