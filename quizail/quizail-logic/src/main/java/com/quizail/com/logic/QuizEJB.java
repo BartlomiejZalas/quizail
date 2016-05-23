@@ -15,6 +15,9 @@ public class QuizEJB implements QuizEJBRemote {
     @EJB
     private QuizDAO quizDAO;
 
+    public QuizEJB() {
+    }
+
     @Override
     public List<Quiz> getQuizzes() {
         return quizDAO.findQuizzes();
@@ -34,4 +37,10 @@ public class QuizEJB implements QuizEJBRemote {
     public void removeQuiz(Quiz quiz) {
         quizDAO.deleteQuiz(quiz);
     }
+
+    QuizEJB(QuizDAO quizDAO) {
+        this.quizDAO = quizDAO;
+    }
+
+
 }
