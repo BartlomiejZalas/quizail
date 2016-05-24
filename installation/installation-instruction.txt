@@ -49,9 +49,13 @@ databaseName: [your postgres database name]
 serverName: localhost
 connectionAttributes: ;create=true
 
+or use command: asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource --restype javax.sql.ConnectionPoolDataSource
+
 4. Go to JDBC Resources and create new resource using following data:
 JNDI Name: jdbc/postgres
 Pool Name: PostgresPool
+
+or use command: asadmin create-jdbc-resource --connectionpoolid PostgresPool jdbc/postgres
 
 ***************************************
 Deploy Application
