@@ -50,7 +50,7 @@ public class QuizBackendBeanTest {
 
         then(quizEJB).should().createQuiz(QUIZ);
         then(quizEJB).should().getQuizzes();
-        assertEquals("listQuizzes.xhtml", pageToRedirect);
+        assertEquals("listQuizzes", pageToRedirect);
 
     }
 }

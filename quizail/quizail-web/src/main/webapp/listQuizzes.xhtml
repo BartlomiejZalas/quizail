@@ -4,24 +4,58 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<ui:define name="title">List of the quizzes</ui:define>
+    <ui:define name="title">List of the quizzes</ui:define>
 
-<ui:define name="content">
-    <h:dataTable value="#{quizBackendBean.quizList}" var="quiz" styleClass="table">
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="Title"/>
-            </f:facet>
-            <h:outputText value="#{quiz.title}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                <h:outputText value="Description"/>
-            </f:facet>
-            <h:outputText value="#{quiz.description}"/>
-        </h:column>
-    </h:dataTable>
-    <h:link value="Add a new quiz" outcome="newQuiz" />
-</ui:define>
+    <ui:define name="content">
+        <h:form id="quizzesList">
+            <h:dataTable value="#{quizBackendBean.quizList}" var="quiz" styleClass="table">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Title"/>
+                    </f:facet>
+                    <h:outputText value="#{quiz.title}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Description"/>
+                    </f:facet>
+                    <h:outputText value="#{quiz.description}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Date"/>
+                    </f:facet>
+                    <h:outputText value="#{quiz.date}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Time [min]"/>
+                    </f:facet>
+                    <h:outputText value="#{quiz.time}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Edit"/>
+                    </f:facet>
+                    <h:commandButton action="#{quizBackendBean.editQuiz(quiz.id)}" value="Edit"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Delete"/>
+                    </f:facet>
+                    <h:commandButton action="#{quizBackendBean.deleteQuiz(quiz.id)}" value="Delete">
+                        <f:ajax execute="@form" render="quizzesList"/>
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Add Questions"/>
+                    </f:facet>
+                    <h:commandButton action="#{quizBackendBean.addQuestions(quiz.id)}" value="Add Questions"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:link value="Add a new quiz" outcome="newQuiz"/>
+    </ui:define>
 
 </ui:composition>

@@ -24,7 +24,7 @@
 
                     <h:panelGroup styleClass="form-group" layout="block">
                         <h:outputLabel for="quizDate" value="Date"/>
-                        <h:inputText value="#{quizBackendBean.quiz.date}" id="quizDate" styleClass="form-control">
+                        <h:inputText value="#{quizBackendBean.quiz.date}" id="quizDate" styleClass="form-control" autocomplete="off">
                             <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
                         </h:inputText>
                         <h:message for="quizDate"/>

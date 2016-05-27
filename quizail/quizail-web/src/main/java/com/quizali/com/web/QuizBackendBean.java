@@ -14,6 +14,7 @@ import java.util.List;
 @RequestScoped
 public class QuizBackendBean {
 
+    public static final String LIST_QUIZZES_PAGE = "listQuizzes";
     @EJB
     private QuizEJBRemote quizEJB;
 
@@ -28,7 +29,7 @@ public class QuizBackendBean {
     public String doCreateQuiz() {
         quiz = quizEJB.createQuiz(quiz);
         quizList = quizEJB.getQuizzes();
-        return "listQuizzes.xhtml";
+        return "listQuizzes";
     }
 
     public QuizEJBRemote getQuizEJB() {
@@ -53,5 +54,21 @@ public class QuizBackendBean {
 
     public void setQuizList(List<Quiz> quizList) {
         this.quizList = quizList;
+    }
+
+    public String deleteQuiz(Long id) {
+        quizEJB.removeQuiz(quizEJB.getQuiz(id));
+        quizList = quizEJB.getQuizzes();
+        return LIST_QUIZZES_PAGE;
+    }
+
+    public void editQuiz(long quizId) {
+        System.out.println("Edit"+quizId);
+
+    }
+
+    public void addQuestions(long quizId) {
+        System.out.println("ADD Q"+quizId);
+
     }
 }
