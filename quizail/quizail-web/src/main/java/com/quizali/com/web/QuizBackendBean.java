@@ -62,13 +62,19 @@ public class QuizBackendBean {
         return LIST_QUIZZES_PAGE;
     }
 
-    public void editQuiz(long quizId) {
-        System.out.println("Edit"+quizId);
-
+    public String editQuiz(long quizId) {
+        quiz = quizEJB.getQuiz(quizId);
+        return "editQuiz";
     }
 
     public void addQuestions(long quizId) {
         System.out.println("ADD Q"+quizId);
 
+    }
+
+    public String saveEditedQuiz() {
+        quizEJB.editQuiz(quiz);
+        quizList = quizEJB.getQuizzes();
+        return LIST_QUIZZES_PAGE;
     }
 }

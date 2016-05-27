@@ -42,6 +42,7 @@ public class QuizDAO implements QuizDAORemote {
     }
 
     public Quiz updateQuiz(Quiz quiz) {
+        System.out.println("BEFORE MERGE:" + quiz.getId());
         return entityManager.merge(quiz);
     }
 }

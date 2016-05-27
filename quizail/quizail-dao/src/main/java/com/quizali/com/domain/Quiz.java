@@ -73,4 +73,6 @@ public class Quiz implements Serializable {
     public int getTime() {
         return time;
     }
+
+
 }

@@ -4,15 +4,16 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="title">Create a new quiz</ui:define>
+    <ui:define name="title">Edit a quiz</ui:define>
 
     <ui:define name="content">
         <h:panelGroup layout="block" styleClass="panel panel-default">
             <h:panelGroup styleClass="panel-heading" layout="block">Quiz Data</h:panelGroup>
             <h:panelGroup styleClass="panel-body" layout="block">
-                <h:form id="addQuizForm">
+                <h:form id="editQuizForm">
                     <ui:include src="quizForm.xhtml" />
-                    <h:commandButton value="Create a quiz" action="#{quizBackendBean.doCreateQuiz}" id="createButton"/>
+                    <h:inputHidden value="#{quizBackendBean.quiz.id}"/>
+                    <h:commandButton value="Save changes" action="#{quizBackendBean.saveEditedQuiz}" id="editButton"/>
                 </h:form>
             </h:panelGroup>
         </h:panelGroup>

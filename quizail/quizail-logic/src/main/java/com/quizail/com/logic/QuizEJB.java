@@ -38,6 +38,11 @@ public class QuizEJB implements QuizEJBRemote {
         quizDAO.deleteQuiz(quiz);
     }
 
+    @Override
+    public void editQuiz(Quiz quiz) {
+        quizDAO.updateQuiz(quiz);
+    }
+
     QuizEJB(QuizDAO quizDAO) {
         this.quizDAO = quizDAO;
     }
