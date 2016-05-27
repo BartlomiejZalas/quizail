@@ -17,9 +17,9 @@ git clone git@github.com:BartlomiejZalas/quizail.git
 Build
 ***************************************
 Build application using maven:
-1. Go to cloned project directory when pom file is located
+1. Go to cloned project directory when main pom file is located (quizail module)
 2. Run "mvn clean install" using command line (or use your IDE)
-3. In target directory there should be generated .war file
+3. In target directory of main module you should see generated .ear file
 
 ***************************************
 Start glassfish
@@ -61,11 +61,11 @@ or use command: asadmin create-jdbc-resource --connectionpoolid PostgresPool jdb
 Deploy Application
 ***************************************
 1. Go to Applications -> Deploy
-2. Select .war file from target directory
+2. Select .ear file from target directory
 3. Click OK
 4. Application should be deployed and visible on the list of applications
 
-Go to http://localhost:8080/webapp-1.0/mainPageStudent.faces or http://localhost:8080/webapp-1.0/mainPage.faces
+Go to http://localhost:8080/quizail/mainPageStudent.xhtml or http://localhost:8080/quizail/mainPage.xhtml
 you should see front page of application.
 
 
