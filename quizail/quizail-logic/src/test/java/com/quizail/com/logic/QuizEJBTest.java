@@ -59,4 +59,11 @@ public class QuizEJBTest {
 
         then(quizDAO).should().deleteQuiz(QUIZ);
     }
+
+    @Test
+    public void testEditQuiz() throws Exception {
+        quizEJB.editQuiz(QUIZ);
+
+        then(quizDAO).should().updateQuiz(QUIZ);
+    }
 }

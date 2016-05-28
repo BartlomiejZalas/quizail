@@ -15,6 +15,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Matchers.any;
 
 @RunWith(MockitoJUnitRunner.class)
 public class QuizBackendBeanTest {
@@ -51,6 +52,35 @@ public class QuizBackendBeanTest {
         then(quizEJB).should().createQuiz(QUIZ);
         then(quizEJB).should().getQuizzes();
         assertEquals("listQuizzes", pageToRedirect);
+    }
 
+    @Test
+    public void testDeleteQuiz_shouldCallDAOToDeleteQuiz() throws Exception {
+        String pageToRedirect = this.quizBackendBean.deleteQuiz(1L);
+
+        then(quizEJB).should().getQuiz(1L);
+        then(quizEJB).should().removeQuiz(any(Quiz.class));
+        then(quizEJB).should().getQuizzes();
+
+        assertEquals(QuizBackendBean.LIST_QUIZZES_PAGE, pageToRedirect);
+    }
+
+    @Test
+    public void testEditQuiz_shouldGetQuizAndRedirect() throws Exception {
+        String pageToRedirect = this.quizBackendBean.editQuiz(1L);
+
+        then(quizEJB).should().getQuiz(1L);
+        assertEquals(QuizBackendBean.EDIT_QUIZ_PAGE, pageToRedirect);
+    }
+
+    @Test
+    public void testSaveEditedQuiz_shouldSaveQuizAndUpdateList() throws Exception {
+        this.quizBackendBean.setQuiz(QUIZ);
+
+        String pageToRedirect = this.quizBackendBean.saveEditedQuiz();
+
+        then(quizEJB).should().editQuiz(QUIZ);
+        then(quizEJB).should().getQuizzes();
+        assertEquals(QuizBackendBean.LIST_QUIZZES_PAGE, pageToRedirect);
     }
 }

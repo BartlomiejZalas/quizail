@@ -15,6 +15,8 @@ import java.util.List;
 public class QuizBackendBean {
 
     public static final String LIST_QUIZZES_PAGE = "listQuizzes";
+    public static final String EDIT_QUIZ_PAGE = "editQuiz";
+
     @EJB
     private QuizEJBRemote quizEJB;
 
@@ -64,12 +66,12 @@ public class QuizBackendBean {
 
     public String editQuiz(long quizId) {
         quiz = quizEJB.getQuiz(quizId);
-        return "editQuiz";
+        return EDIT_QUIZ_PAGE;
     }
 
     public String addQuestions(long quizId) {
+        //TODO Add Question story implementation
         return "addQuestions";
-
     }
 
     public String saveEditedQuiz() {
