@@ -48,6 +48,16 @@ public class QuizSteps extends RemoteServiceTestSteps{
         quizEJBRemote.removeQuiz(createdQuiz);
     }
 
+    @When("this quiz is edited with values title: $title and description: $description and date: $date and time: $time")
+    public void editQuiz(String title, String description, Date date, int time) {
+        Quiz editedQuiz = quizEJBRemote.getQuiz(createdQuiz.getId());
+        editedQuiz.setTitle(title);
+        editedQuiz.setDescription(description);
+        editedQuiz.setDate(date);
+        editedQuiz.setTime(time);
+        quizEJBRemote.editQuiz(editedQuiz);
+        createdQuiz = quizEJBRemote.getQuiz(editedQuiz.getId());
+    }
     @When("find this quiz")
     public void findQuiz() {
         createdQuiz = quizEJBRemote.getQuiz(createdQuiz.getId());
@@ -77,6 +87,8 @@ public class QuizSteps extends RemoteServiceTestSteps{
     public void assertAllQuizzesNumber(int n) {
         assertEquals(n, allQuizzes.size());
     }
+
+
 
     private void removeAllQuizzes() {
         List<Quiz> quizzes = quizEJBRemote.getQuizzes();
