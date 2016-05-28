@@ -4,7 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="title">List of the quizzes</ui:define>
+    <ui:define name="title">Quizzes list</ui:define>
 
     <ui:define name="content">
         <h:form id="quizzesList">
@@ -37,25 +37,34 @@
                     <f:facet name="header">
                         <h:outputText value="Edit"/>
                     </f:facet>
-                    <h:commandButton action="#{quizBackendBean.editQuiz(quiz.id)}" value="Edit"/>
+                    <h:commandLink action="#{quizBackendBean.editQuiz(quiz.id)}" styleClass="btn btn-success">
+                        <span class="glyphicon glyphicon-edit" /> Edit
+                    </h:commandLink>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Delete"/>
                     </f:facet>
-                    <h:commandButton action="#{quizBackendBean.deleteQuiz(quiz.id)}" value="Delete">
+                    <h:commandLink action="#{quizBackendBean.deleteQuiz(quiz.id)}" styleClass="btn btn-danger"
+                                   onclick="return confirm('Are you sure you want to delete quiz #{quiz.title}?')">
                         <f:ajax execute="@form" render="quizzesList"/>
-                    </h:commandButton>
+                        <span class="glyphicon glyphicon-remove" /> Delete
+                    </h:commandLink>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Add Questions"/>
                     </f:facet>
-                    <h:commandButton action="#{quizBackendBean.addQuestions(quiz.id)}" value="Add Questions"/>
+                    <h:commandLink action="#{quizBackendBean.addQuestions(quiz.id)}" styleClass="btn btn-primary">
+                        <span class="glyphicon glyphicon-plus-sign" /> Add Questions
+                    </h:commandLink>
+
                 </h:column>
             </h:dataTable>
         </h:form>
-        <h:link value="Add a new quiz" outcome="newQuiz"/>
+        <h:link outcome="newQuiz" styleClass="btn btn-success">
+            <span class="glyphicon glyphicon-plus-sign" /> Add a new quiz
+        </h:link>
     </ui:define>
 
 </ui:composition>

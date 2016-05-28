@@ -14,7 +14,7 @@ public class Quiz implements Serializable {
     @Column(nullable = false)
     private String title;
 
-    @Column(length = 2000, nullable = false)
+    @Column(length = 120, nullable = false)
     private String description;
 
     @Column(nullable = false)

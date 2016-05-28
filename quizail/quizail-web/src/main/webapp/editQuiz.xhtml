@@ -13,7 +13,9 @@
                 <h:form id="editQuizForm">
                     <ui:include src="quizForm.xhtml" />
                     <h:inputHidden value="#{quizBackendBean.quiz.id}"/>
-                    <h:commandButton value="Save changes" action="#{quizBackendBean.saveEditedQuiz}" id="editButton"/>
+                    <h:commandLink action="#{quizBackendBean.saveEditedQuiz}" styleClass="btn btn-primary">
+                        <span class="glyphicon glyphicon-save" /> Save changes
+                    </h:commandLink>
                 </h:form>
             </h:panelGroup>
         </h:panelGroup>

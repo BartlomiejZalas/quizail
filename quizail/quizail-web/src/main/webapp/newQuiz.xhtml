@@ -12,7 +12,9 @@
             <h:panelGroup styleClass="panel-body" layout="block">
                 <h:form id="addQuizForm">
                     <ui:include src="quizForm.xhtml" />
-                    <h:commandButton value="Create a quiz" action="#{quizBackendBean.doCreateQuiz}" id="createButton"/>
+                    <h:commandLink action="#{quizBackendBean.doCreateQuiz}" styleClass="btn btn-primary">
+                        <span class="glyphicon glyphicon-save" /> Create
+                    </h:commandLink>
                 </h:form>
             </h:panelGroup>
         </h:panelGroup>

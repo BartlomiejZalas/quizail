@@ -6,26 +6,41 @@
 
     <h:panelGroup styleClass="form-group" layout="block">
         <h:outputLabel for="quizTitle" value="Title"/>
-        <h:inputText value="#{quizBackendBean.quiz.title}" id="quizTitle" styleClass="form-control"/>
+        <h:inputText value="#{quizBackendBean.quiz.title}" id="quizTitle"
+                     styleClass="form-control" required="true" validatorMessage="Title is required"
+                     requiredMessage="Quiz title is required" />
+        <h:message for="quizTitle"  styleClass="text-danger"/>
     </h:panelGroup>
 
     <h:panelGroup styleClass="form-group" layout="block">
         <h:outputLabel for="quizDesc" value="Description"/>
         <h:inputText value="#{quizBackendBean.quiz.description}" id="quizDesc"
-                     styleClass="form-control"/>
+                     styleClass="form-control" required="true"
+                     validatorMessage="Description should be at most 120 characters long"
+                     requiredMessage="Quiz description is required" >
+            <f:validateLength minimum="1" maximum="120"/>
+        </h:inputText>
+        <h:message for="quizDesc"  styleClass="text-danger"/>
     </h:panelGroup>
 
     <h:panelGroup styleClass="form-group" layout="block">
         <h:outputLabel for="quizDate" value="Date"/>
-        <h:inputText value="#{quizBackendBean.quiz.date}" id="quizDate" styleClass="form-control" autocomplete="off">
+        <h:inputText value="#{quizBackendBean.quiz.date}" id="quizDate"
+                     styleClass="form-control" autocomplete="off" required="true"
+                     validatorMessage="Date should have dd-MM-yyyy HH:mm format"
+                     requiredMessage="Quiz date is required" >
             <f:convertDateTime pattern="dd-MM-yyyy HH:mm"/>
         </h:inputText>
-        <h:message for="quizDate"/>
+        <h:message for="quizDate"  styleClass="text-danger"/>
     </h:panelGroup>
 
     <h:panelGroup styleClass="form-group" layout="block">
         <h:outputLabel for="quizTime" value="Time [min]"/>
-        <h:inputText value="#{quizBackendBean.quiz.time}" id="quizTime" styleClass="form-control"/>
-        <h:message for="quizTime"/>
+        <h:inputText value="#{quizBackendBean.quiz.time}" id="quizTime"
+                     styleClass="form-control" validatorMessage="Quiz time should be between 5 and 120 min"
+                     requiredMessage="Quiz time is required" >
+            <f:validateLongRange minimum="10" maximum="120"/>
+        </h:inputText>
+        <h:message for="quizTime" styleClass="text-danger"/>
     </h:panelGroup>
 </ui:composition>
