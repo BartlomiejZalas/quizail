@@ -67,8 +67,8 @@ public class QuizBackendBean {
         return "editQuiz";
     }
 
-    public void addQuestions(long quizId) {
-        System.out.println("ADD Q"+quizId);
+    public String addQuestions(long quizId) {
+        return "addQuestions";
 
     }
 
