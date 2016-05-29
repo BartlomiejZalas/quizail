@@ -12,12 +12,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.quizail.com</groupId>
-            <artifactId>quizail-domain</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.ejb</artifactId>
             <version>3.0.1</version>
