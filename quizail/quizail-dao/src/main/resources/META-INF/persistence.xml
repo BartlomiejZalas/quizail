@@ -7,7 +7,9 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
     <persistence-unit name="mainDatabase" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/postgres</jta-data-source>
-        <class>com.quizali.com.Quiz</class>
+        <class>com.quizali.com.domain.Quiz</class>
+        <class>com.quizali.com.domain.Option</class>
+        <class>com.quizali.com.domain.Question</class>
         <properties>
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
             <property name="eclipselink.logging.level" value="INFO"/>

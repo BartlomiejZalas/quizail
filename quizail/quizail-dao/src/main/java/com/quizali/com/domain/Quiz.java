@@ -2,7 +2,9 @@ package com.quizali.com.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NamedQuery(name = "findAllQuizzes", query = "SELECT q FROM Quiz q")
@@ -24,7 +26,11 @@ public class Quiz implements Serializable {
     @Column(nullable = false)
     private int time;
 
+    @OneToMany(mappedBy="quiz", fetch=FetchType.EAGER)
+    private List<Question> questions;
+
     public Quiz() {
+        questions = new ArrayList<>();
     }
 
     public Quiz(String title, String description, Date date, int time) {
@@ -33,6 +39,17 @@ public class Quiz implements Serializable {
         this.date = date;
         this.time = time;
     }
+
+    public void addQuestion(Question question) {
+        if (!getQuestions().contains(question)) {
+            getQuestions().add(question);
+            if (question.getQuiz() != null) {
+                question.getQuiz().getQuestions().remove(question);
+            }
+            question.setQuiz(this);
+        }
+    }
+
 
     public Long getId() {
         return id;
@@ -74,5 +91,19 @@ public class Quiz implements Serializable {
         return time;
     }
 
+    public List<Question> getQuestions() {
+        return questions;
+    }
 
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public int getGetQuestionsSize() {
+        getQuestions();
+        if (questions == null) {
+            return 0;
+        }
+        return questions.size();
+    }
 }

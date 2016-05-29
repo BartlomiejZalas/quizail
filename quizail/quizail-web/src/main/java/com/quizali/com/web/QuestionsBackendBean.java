@@ -1,0 +1,124 @@
+package com.quizali.com.web;
+
+import com.quizail.com.logic.QuestionEJBRemote;
+import com.quizail.com.logic.QuizEJBRemote;
+import com.quizali.com.domain.Option;
+import com.quizali.com.domain.Question;
+import com.quizali.com.domain.Quiz;
+
+import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@ManagedBean
+@SessionScoped
+public class QuestionsBackendBean {
+
+    @EJB
+    private QuizEJBRemote quizEJB;
+    @EJB
+    private QuestionEJBRemote questionEJB;
+
+    private Question question = new Question();
+    private List<Option> options = new ArrayList<>();
+
+    private String newOptionContent;
+    private Quiz quiz;
+
+    @PostConstruct
+    public void init() {
+    }
+
+    public String displayForm(Long quizId) {
+        quiz = quizEJB.getQuiz(quizId);
+        return "addQuestions";
+    }
+
+    public String doCreateQuestion() {
+
+        //TODO add connections between entities
+
+        Map<String, String> parameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Long param = Long.parseLong(parameterMap.get("quizId"));
+        Quiz quiz = quizEJB.getQuiz(param);
+
+        quiz.addQuestion(question);
+        quizEJB.editQuiz(quiz);
+
+        question.setQuiz(quiz);
+
+        for(Option o : options) {
+            o.setQuestion(question);
+        }
+
+        question.setOptions(options);
+        questionEJB.createQuestion(question);
+
+        question = new Question();
+        options = new ArrayList<>();
+        newOptionContent = null;
+
+        this.quiz = quizEJB.getQuiz(param);
+
+        System.out.println("BAZALOG:"+ this.quiz.getQuestions().get(0).getOptions());
+
+        return displayForm(quiz.getId());
+    }
+
+    public void addOption() {
+        Option option = new Option();
+        option.setContent(newOptionContent);
+        option.setCorrect(false);
+        option.setQuestion(question);
+        options.add(option);
+    }
+
+
+
+    public QuizEJBRemote getQuizEJBRemote() {
+        return quizEJB;
+    }
+
+    public void setQuizEJBRemote(QuizEJBRemote quizDAO) {
+        this.quizEJB = quizDAO;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<Option> options) {
+        this.options = options;
+    }
+
+    public String getNewOptionContent() {
+        return newOptionContent;
+    }
+
+    public void setNewOptionContent(String newOptionContent) {
+        this.newOptionContent = newOptionContent;
+    }
+}

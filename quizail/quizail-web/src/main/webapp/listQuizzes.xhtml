@@ -2,6 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="title">Quizzes list</ui:define>
@@ -35,6 +36,12 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">
+                        <h:outputText value="Number of questions"/>
+                    </f:facet>
+                    <h:outputText value="#{quiz.getQuestionsSize}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
                         <h:outputText value="Edit"/>
                     </f:facet>
                     <h:commandLink action="#{quizBackendBean.editQuiz(quiz.id)}" styleClass="btn btn-success">
@@ -55,10 +62,9 @@
                     <f:facet name="header">
                         <h:outputText value="Add Questions"/>
                     </f:facet>
-                    <h:commandLink action="#{quizBackendBean.addQuestions(quiz.id)}" styleClass="btn btn-primary">
+                    <h:commandLink styleClass="btn btn-primary" action="#{questionsBackendBean.displayForm(quiz.id)}">
                         <span class="glyphicon glyphicon-plus-sign" /> Add Questions
                     </h:commandLink>
-
                 </h:column>
             </h:dataTable>
         </h:form>

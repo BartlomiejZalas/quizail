@@ -7,11 +7,13 @@ import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class QuizBackendBean {
 
     public static final String LIST_QUIZZES_PAGE = "listQuizzes";
@@ -67,11 +69,6 @@ public class QuizBackendBean {
     public String editQuiz(long quizId) {
         quiz = quizEJB.getQuiz(quizId);
         return EDIT_QUIZ_PAGE;
-    }
-
-    public String addQuestions(long quizId) {
-        //TODO Add Question story implementation
-        return "addQuestions";
     }
 
     public String saveEditedQuiz() {
