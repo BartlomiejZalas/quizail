@@ -108,11 +108,15 @@
                                              required="true"
                                              id="newOption"
                                              styleClass="form-control"
-                                             requiredMessage="Option content is required"/>
+                                             requiredMessage="Option content is required. "/>
 
-                                <h:selectOneMenu value="#{questionsBackendBean.newOptionCorrect}" styleClass="form-control">
-                                    <f:selectItem itemValue="false" itemLabel="Incorrect" />
-                                    <f:selectItem itemValue="true" itemLabel="Correct" />
+                                <h:selectOneMenu value="#{questionsBackendBean.newOptionCorrect}"
+                                                 styleClass="form-control"
+                                                 validator="#{questionsBackendBean.validateCorrectAnswerDuplication}"
+                                                 id="optionCorrectSelectBox"
+                                                 validatorMessage="Only one option may be assigned as correct. ">
+                                    <f:selectItem itemValue="false" itemLabel="Incorrect"/>
+                                    <f:selectItem itemValue="true" itemLabel="Correct"/>
                                 </h:selectOneMenu>
 
                                 <h:commandLink action="#{questionsBackendBean.addOption}"
@@ -123,19 +127,16 @@
 
                             </h:panelGroup>
 
-                            <h:message for="newOption" styleClass="text-danger"/>
-
-                            <h:inputHidden validator="#{questionsBackendBean.validateCorrectAnswerDuplication}"
-                                           validatorMessage="Only one option may be marked as correct. "
-                                           id="optionsCorrectDuplication"/>
-                            <h:message for="optionsCorrectDuplication" styleClass="text-danger"/>
+                            <h:panelGroup layout="block row">
+                                <h:message for="newOption" styleClass="text-danger"/>
+                                <h:message for="optionCorrectSelectBox" styleClass="text-danger"/>
+                            </h:panelGroup>
 
                         </h:form>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
-
 
     </ui:define>
 

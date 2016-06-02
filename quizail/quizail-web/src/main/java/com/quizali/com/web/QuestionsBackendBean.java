@@ -65,16 +65,12 @@ public class QuestionsBackendBean {
         question = new Question();
         options = new ArrayList<>();
         newOptionContent = null;
-
         this.quiz = quizEJB.getQuiz(param);
-
-        System.out.println("BAZALOG:" + this.quiz.getQuestions().get(0).getOptions());
 
         return displayForm(quiz.getId());
     }
 
     public void addOption() {
-        System.out.println("BAZALOG imhere");
         Option option = new Option();
         option.setContent(newOptionContent);
         option.setCorrect(newOptionCorrect);
@@ -145,11 +141,9 @@ public class QuestionsBackendBean {
     }
 
     public void validateCorrectAnswerDuplication(FacesContext facesContext, UIComponent uiComponent, Object value) {
-        Boolean isCorrect = Boolean.parseBoolean((String) value);
-
+        Boolean isCorrect = (Boolean) value;
         if (computeCorrectAnswers() > 0 && isCorrect) {
-            //TODO nie działa :)
-            String message = "Only one option may be assigned as correct";
+            String message = "Only one option may be added as correct";
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
         }
     }
