@@ -9,5 +9,6 @@ import java.util.List;
 @Remote
 public interface QuestionEJBRemote {
     Question createQuestion(Question quiz);
+    Question editQuestion(Question quiz);
 
 }

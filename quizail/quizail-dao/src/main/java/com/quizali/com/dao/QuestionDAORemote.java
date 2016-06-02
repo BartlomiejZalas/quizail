@@ -9,4 +9,6 @@ import java.util.List;
 @Remote
 public interface QuestionDAORemote {
     Question createQuestion(Question quiz);
+
+    Question updateQuiz(Question question);
 }

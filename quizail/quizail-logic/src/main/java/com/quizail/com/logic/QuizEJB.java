@@ -39,8 +39,8 @@ public class QuizEJB implements QuizEJBRemote {
     }
 
     @Override
-    public void editQuiz(Quiz quiz) {
-        quizDAO.updateQuiz(quiz);
+    public Quiz editQuiz(Quiz quiz) {
+        return quizDAO.updateQuiz(quiz);
     }
 
     QuizEJB(QuizDAO quizDAO) {

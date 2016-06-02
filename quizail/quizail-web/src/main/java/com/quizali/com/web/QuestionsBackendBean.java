@@ -9,10 +9,11 @@ import com.quizali.com.domain.Quiz;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,24 +43,24 @@ public class QuestionsBackendBean {
     }
 
     public String doCreateQuestion() {
-
-        //TODO add connections between entities
-
         Map<String, String> parameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long param = Long.parseLong(parameterMap.get("quizId"));
         Quiz quiz = quizEJB.getQuiz(param);
 
         quiz.addQuestion(question);
-        quizEJB.editQuiz(quiz);
+        quiz = quizEJB.editQuiz(quiz);
 
-        question.setQuiz(quiz);
 
-        for(Option o : options) {
-            o.setQuestion(question);
+
+        List<Question> questions = quiz.getQuestions();
+        Question addedQuestion = questions.get(questions.size()-1);
+
+        for (Option option : options) {
+            option.setQuestion(addedQuestion);
         }
+        addedQuestion.setOptions(options);
+        questionEJB.editQuestion(addedQuestion);
 
-        question.setOptions(options);
-        questionEJB.createQuestion(question);
 
         question = new Question();
         options = new ArrayList<>();
@@ -67,7 +68,7 @@ public class QuestionsBackendBean {
 
         this.quiz = quizEJB.getQuiz(param);
 
-        System.out.println("BAZALOG:"+ this.quiz.getQuestions().get(0).getOptions());
+        System.out.println("BAZALOG:" + this.quiz.getQuestions().get(0).getOptions());
 
         return displayForm(quiz.getId());
     }
@@ -76,10 +77,8 @@ public class QuestionsBackendBean {
         Option option = new Option();
         option.setContent(newOptionContent);
         option.setCorrect(false);
-        option.setQuestion(question);
         options.add(option);
     }
-
 
 
     public QuizEJBRemote getQuizEJBRemote() {
@@ -120,5 +119,12 @@ public class QuestionsBackendBean {
 
     public void setNewOptionContent(String newOptionContent) {
         this.newOptionContent = newOptionContent;
+    }
+
+    public void validateIfOptionsAdded(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        if (options.size() == 0) {
+            String message = "You cannot create question without any options specified.";
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+        }
     }
 }

@@ -7,7 +7,6 @@
     <ui:define name="title">Add questions</ui:define>
 
     <ui:define name="content">
-
         <h:panelGroup layout="block" styleClass="panel panel-default">
             <h:panelGroup styleClass="panel-heading" layout="block">Questions</h:panelGroup>
             <h:panelGroup styleClass="panel-body" layout="block">
@@ -28,10 +27,9 @@
                         <f:facet name="header">
                             <h:outputText value="Options"/>
                         </f:facet>
-                        <ui:repeat value="#{questionsBackendBean.options}" var="option">
+                        <ui:repeat value="#{question.options}" var="option">
                             <h:outputText value="#{option.content}, "/>
                         </ui:repeat>
-                        <h:outputText value="#{questionsBackendBean.options}"/>
                     </h:column>
                 </h:dataTable>
 
@@ -40,33 +38,46 @@
 
         <h:panelGroup layout="block" styleClass="panel panel-default">
             <h:panelGroup styleClass="panel-heading" layout="block">Add Question</h:panelGroup>
-            <h:panelGroup styleClass="panel-body" layout="block">
+            <h:panelGroup styleClass="panel-body " layout="block">
+                <h:panelGroup styleClass="row" layout="block">
+                    <h:panelGroup styleClass="col-md-6" layout="block">
+                        <h2>Question Data</h2>
+                        <h:form>
+                            <h:panelGroup styleClass="form-group" layout="block">
+                                <h:messages globalOnly="true"/>
+                                <h:outputLabel for="questionContent" value="Question Content"/>
+                                <h:inputText value="#{questionsBackendBean.question.content}"
+                                             id="questionContent"
+                                             styleClass="form-control"
+                                             validatorMessage="Question content should have at most 2000 characters"
+                                             requiredMessage="Question content is required">
+                                    <f:validateLength minimum="1" maximum="2000"/>
+                                </h:inputText>
+                                <h:message for="questionContent" styleClass="text-danger"/>
+                            </h:panelGroup>
 
-                <h:form>
-                    <h:panelGroup styleClass="form-group" layout="block">
-                        <h:outputLabel for="questionContent" value="Question Content"/>
-                        <h:inputText value="#{questionsBackendBean.question.content}" id="questionContent"
-                                     styleClass="form-control"
-                                     validatorMessage="Question content should have at most 2000 characters"
-                                     requiredMessage="Question content is required">
-                            <f:validateLength minimum="1" maximum="2000"/>
-                        </h:inputText>
-                        <h:message for="questionContent" styleClass="text-danger"/>
+                            <h:panelGroup styleClass="form-group" layout="block">
+                                <h:outputLabel for="questionPoints" value="Points"/>
+                                <h:inputText value="#{questionsBackendBean.question.points}"
+                                             id="questionPoints"
+                                             styleClass="form-control"
+                                             validatorMessage="Points should be in range 0.1 - 100"
+                                             requiredMessage="Points field is required">
+                                    <f:validateDoubleRange minimum="0.1" maximum="100"/>
+                                </h:inputText>
+                                <h:message for="questionPoints" styleClass="text-danger"/>
+                            </h:panelGroup>
+                            <h:commandLink action="#{questionsBackendBean.doCreateQuestion}"
+                                           styleClass="btn btn-primary">
+                                <span class="glyphicon glyphicon-save"/> Create Question
+                                <f:param name="quizId" value="#{questionsBackendBean.quiz.id}"/>
+                            </h:commandLink>
+                        </h:form>
                     </h:panelGroup>
 
-                    <h:panelGroup styleClass="form-group" layout="block">
-                        <h:outputLabel for="questionPoints" value="Points"/>
-                        <h:inputText value="#{questionsBackendBean.question.points}" id="questionPoints"
-                                     styleClass="form-control" validatorMessage="Points should be in range 0.1 - 100"
-                                     requiredMessage="Points field is required">
-                            <f:validateDoubleRange minimum="0.1" maximum="100"/>
-                        </h:inputText>
-                        <h:message for="questionPoints" styleClass="text-danger"/>
-                    </h:panelGroup>
-
-                    <h:panelGroup layout="block" styleClass="panel panel-default" id="optionsBlock">
-                        <h:panelGroup styleClass="panel-heading" layout="block">Defined Options</h:panelGroup>
-                        <h:panelGroup styleClass="panel-body" layout="block">
+                    <h:panelGroup styleClass="col-md-6" layout="block">
+                        <h2>Defined Options</h2>
+                        <h:form>
                             <ul>
                                 <ui:repeat value="#{questionsBackendBean.options}" var="option">
                                     <li><h:outputText value="#{option.content}"/></li>
@@ -74,24 +85,24 @@
                             </ul>
 
                             <h:panelGroup styleClass="form-inline">
-                                <h:inputText value="#{questionsBackendBean.newOptionContent}" required="true"
+                                <h:inputText value="#{questionsBackendBean.newOptionContent}"
+                                             required="true"
                                              id="newOption"
-                                             styleClass="form-control" requiredMessage="Option content is required"/>
-
-                                <h:commandLink action="#{questionsBackendBean.addOption}" styleClass="btn btn-success">
+                                             styleClass="form-control"
+                                             requiredMessage="Option content is required"/>
+                                <h:commandLink action="#{questionsBackendBean.addOption}"
+                                               styleClass="btn btn-success">
+                                    <f:ajax execute="@form" render="optionsBlock"/>
                                     <span class="glyphicon glyphicon-plus"/> Add new option
                                 </h:commandLink>
                             </h:panelGroup>
-                        </h:panelGroup>
+                            <h:message for="newOption" styleClass="text-danger"/>
+                        </h:form>
                     </h:panelGroup>
-
-                    <h:commandLink action="#{questionsBackendBean.doCreateQuestion}" styleClass="btn btn-primary">
-                        <span class="glyphicon glyphicon-save"/> Create Question
-                        <f:param name="quizId" value="#{questionsBackendBean.quiz.id}"/>
-                    </h:commandLink>
-                </h:form>
+                </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
+
 
     </ui:define>
 

@@ -37,7 +37,7 @@
     <h:panelGroup styleClass="form-group" layout="block">
         <h:outputLabel for="quizTime" value="Time [min]"/>
         <h:inputText value="#{quizBackendBean.quiz.time}" id="quizTime"
-                     styleClass="form-control" validatorMessage="Quiz time should be between 5 and 120 min"
+                     styleClass="form-control" validatorMessage="Quiz time should be between 10 and 120 min"
                      requiredMessage="Quiz time is required" >
             <f:validateLongRange minimum="10" maximum="120"/>
         </h:inputText>

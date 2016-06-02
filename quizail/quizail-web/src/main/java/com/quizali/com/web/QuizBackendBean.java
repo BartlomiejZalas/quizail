@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class QuizBackendBean {
 
     public static final String LIST_QUIZZES_PAGE = "listQuizzes";

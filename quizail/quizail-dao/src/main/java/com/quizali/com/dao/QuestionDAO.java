@@ -24,9 +24,15 @@ public class QuestionDAO implements QuestionDAORemote {
         this.entityManager = entityManager;
     }
 
+    @Override
     public Question createQuestion(Question question) {
         entityManager.persist(question);
         return question;
+    }
+
+    @Override
+    public Question updateQuiz(Question question) {
+        return entityManager.merge(question);
     }
 
 }

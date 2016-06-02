@@ -25,6 +25,10 @@ public class QuestionEJB implements QuestionEJBRemote {
         return questionDAO.createQuestion(question);
     }
 
+    @Override
+    public Question editQuestion(Question question) {
+        return questionDAO.updateQuiz(question);
+    }
 
 
 }
