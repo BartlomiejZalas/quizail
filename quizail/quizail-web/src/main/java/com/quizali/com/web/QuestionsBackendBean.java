@@ -31,6 +31,7 @@ public class QuestionsBackendBean {
     private List<Option> options = new ArrayList<>();
 
     private String newOptionContent;
+    private Boolean newOptionCorrect;
     private Quiz quiz;
 
     @PostConstruct
@@ -51,9 +52,8 @@ public class QuestionsBackendBean {
         quiz = quizEJB.editQuiz(quiz);
 
 
-
         List<Question> questions = quiz.getQuestions();
-        Question addedQuestion = questions.get(questions.size()-1);
+        Question addedQuestion = questions.get(questions.size() - 1);
 
         for (Option option : options) {
             option.setQuestion(addedQuestion);
@@ -74,9 +74,10 @@ public class QuestionsBackendBean {
     }
 
     public void addOption() {
+        System.out.println("BAZALOG imhere");
         Option option = new Option();
         option.setContent(newOptionContent);
-        option.setCorrect(false);
+        option.setCorrect(newOptionCorrect);
         options.add(option);
     }
 
@@ -121,10 +122,46 @@ public class QuestionsBackendBean {
         this.newOptionContent = newOptionContent;
     }
 
+    public Boolean getNewOptionCorrect() {
+        return newOptionCorrect;
+    }
+
+    public void setNewOptionCorrect(Boolean newOptionCorrect) {
+        this.newOptionCorrect = newOptionCorrect;
+    }
+
     public void validateIfOptionsAdded(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        if (options.size() == 0) {
+        if (options.size() < 2) {
             String message = "You cannot create question without any options specified.";
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
         }
     }
+
+    public void validateIfOptionsHasCorrectAnswer(FacesContext facesContext, UIComponent uiComponent, Object o) {
+        if (computeCorrectAnswers() != 1) {
+            String message = "At least one option has to be assigned as correct";
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+        }
+    }
+
+    public void validateCorrectAnswerDuplication(FacesContext facesContext, UIComponent uiComponent, Object value) {
+        Boolean isCorrect = Boolean.parseBoolean((String) value);
+
+        if (computeCorrectAnswers() > 0 && isCorrect) {
+            //TODO nie działa :)
+            String message = "Only one option may be assigned as correct";
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+        }
+    }
+
+    private int computeCorrectAnswers() {
+        int correctAnswers = 0;
+        for (Option option : options) {
+            if (option.getCorrect()) {
+                correctAnswers++;
+            }
+        }
+        return correctAnswers;
+    }
+
 }

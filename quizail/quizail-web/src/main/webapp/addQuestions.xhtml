@@ -41,8 +41,8 @@
             <h:panelGroup styleClass="panel-body " layout="block">
                 <h:panelGroup styleClass="row" layout="block">
                     <h:panelGroup styleClass="col-md-6" layout="block">
-                        <h2>Question Data</h2>
                         <h:form>
+                            <h3>Question Data</h3>
                             <h:panelGroup styleClass="form-group" layout="block">
                                 <h:messages globalOnly="true"/>
                                 <h:outputLabel for="questionContent" value="Question Content"/>
@@ -67,6 +67,16 @@
                                 </h:inputText>
                                 <h:message for="questionPoints" styleClass="text-danger"/>
                             </h:panelGroup>
+
+                            <h:inputHidden validator="#{questionsBackendBean.validateIfOptionsAdded}"
+                                           validatorMessage="You must add at least 2 options. " id="optionsAdded"/>
+                            <h:message for="optionsAdded" styleClass="text-danger"/>
+
+                            <h:inputHidden validator="#{questionsBackendBean.validateIfOptionsHasCorrectAnswer}"
+                                           validatorMessage="One option must be marked as correct. "
+                                           id="optionsCorrect"/>
+                            <h:message for="optionsCorrect" styleClass="text-danger"/>
+
                             <h:commandLink action="#{questionsBackendBean.doCreateQuestion}"
                                            styleClass="btn btn-primary">
                                 <span class="glyphicon glyphicon-save"/> Create Question
@@ -75,14 +85,23 @@
                         </h:form>
                     </h:panelGroup>
 
-                    <h:panelGroup styleClass="col-md-6" layout="block">
-                        <h2>Defined Options</h2>
+                    <h:panelGroup styleClass="col-md-6" layout="block" id="optionsBlock">
                         <h:form>
-                            <ul>
-                                <ui:repeat value="#{questionsBackendBean.options}" var="option">
-                                    <li><h:outputText value="#{option.content}"/></li>
-                                </ui:repeat>
-                            </ul>
+                            <h3>Defined Options</h3>
+                            <h:dataTable value="#{questionsBackendBean.options}" var="option" styleClass="table">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Content"/>
+                                    </f:facet>
+                                    <h:outputText value="#{option.content}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Is correct"/>
+                                    </f:facet>
+                                    <h:outputText value="#{option.correct}"/>
+                                </h:column>
+                            </h:dataTable>
 
                             <h:panelGroup styleClass="form-inline">
                                 <h:inputText value="#{questionsBackendBean.newOptionContent}"
@@ -90,13 +109,27 @@
                                              id="newOption"
                                              styleClass="form-control"
                                              requiredMessage="Option content is required"/>
+
+                                <h:selectOneMenu value="#{questionsBackendBean.newOptionCorrect}" styleClass="form-control">
+                                    <f:selectItem itemValue="false" itemLabel="Incorrect" />
+                                    <f:selectItem itemValue="true" itemLabel="Correct" />
+                                </h:selectOneMenu>
+
                                 <h:commandLink action="#{questionsBackendBean.addOption}"
                                                styleClass="btn btn-success">
                                     <f:ajax execute="@form" render="optionsBlock"/>
                                     <span class="glyphicon glyphicon-plus"/> Add new option
                                 </h:commandLink>
+
                             </h:panelGroup>
+
                             <h:message for="newOption" styleClass="text-danger"/>
+
+                            <h:inputHidden validator="#{questionsBackendBean.validateCorrectAnswerDuplication}"
+                                           validatorMessage="Only one option may be marked as correct. "
+                                           id="optionsCorrectDuplication"/>
+                            <h:message for="optionsCorrectDuplication" styleClass="text-danger"/>
+
                         </h:form>
                     </h:panelGroup>
                 </h:panelGroup>
