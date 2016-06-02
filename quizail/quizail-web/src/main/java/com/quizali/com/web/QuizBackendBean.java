@@ -31,8 +31,10 @@ public class QuizBackendBean {
     }
 
     public String doCreateQuiz() {
-        quiz = quizEJB.createQuiz(quiz);
+        quizEJB.createQuiz(quiz);
         quizList = quizEJB.getQuizzes();
+        quiz = new Quiz();
+
         return "listQuizzes";
     }
 
