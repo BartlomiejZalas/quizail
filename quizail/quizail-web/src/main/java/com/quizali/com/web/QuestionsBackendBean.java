@@ -78,6 +78,14 @@ public class QuestionsBackendBean {
     }
 
 
+    public void removeOption() {
+        Map<String, String> parameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        int param = Integer.parseInt(parameterMap.get("optionId"));
+
+        options.remove(param);
+    }
+
+
     public QuizEJBRemote getQuizEJBRemote() {
         return quizEJB;
     }
