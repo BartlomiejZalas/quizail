@@ -35,4 +35,14 @@ public class QuestionDAO implements QuestionDAORemote {
         return entityManager.merge(question);
     }
 
+    @Override
+    public Question findQuestionById(Long id) {
+        return entityManager.find(Question.class, id);
+    }
+
+    @Override
+    public void deleteQuestion(Question question) {
+        entityManager.remove(entityManager.merge(question));
+    }
+
 }

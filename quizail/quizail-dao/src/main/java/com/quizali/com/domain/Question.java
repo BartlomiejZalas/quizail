@@ -1,9 +1,13 @@
 package com.quizali.com.domain;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.common.base.Objects.*;
 
 @Entity
 public class Question implements Serializable {
@@ -22,7 +26,7 @@ public class Question implements Serializable {
     private Quiz quiz;
 
     @OrderBy("id ASC")
-    @OneToMany(mappedBy="question", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="question", fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Option> options;
 
     public Question() {
@@ -67,5 +71,32 @@ public class Question implements Serializable {
 
     public void setOptions(List<Option> options) {
         this.options = options;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", points=" + points +
+                ", quiz=" + quiz +
+                ", options=" + options +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return Double.compare(question.points, points) == 0 &&
+                equal(id, question.id) &&
+                equal(content, question.content) &&
+                equal(options, question.options);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, content, points, options);
     }
 }

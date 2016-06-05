@@ -1,5 +1,7 @@
 package com.quizali.com.domain;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class Quiz implements Serializable {
     @Column(nullable = false)
     private int time;
 
-    @OneToMany(mappedBy="quiz", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="quiz", fetch=FetchType.EAGER, orphanRemoval=true)
     private List<Question> questions;
 
     public Quiz() {
@@ -105,5 +107,23 @@ public class Quiz implements Serializable {
             return 0;
         }
         return questions.size();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Quiz quiz = (Quiz) o;
+        return time == quiz.time &&
+                Objects.equal(id, quiz.id) &&
+                Objects.equal(title, quiz.title) &&
+                Objects.equal(description, quiz.description) &&
+                Objects.equal(date, quiz.date) &&
+                Objects.equal(questions, quiz.questions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, title, description, date, time, questions);
     }
 }

@@ -11,4 +11,8 @@ public interface QuestionDAORemote {
     Question createQuestion(Question quiz);
 
     Question updateQuiz(Question question);
+
+    Question findQuestionById(Long id);
+
+    void deleteQuestion(Question question);
 }

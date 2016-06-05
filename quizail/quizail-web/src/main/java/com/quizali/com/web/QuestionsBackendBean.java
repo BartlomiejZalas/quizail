@@ -158,4 +158,17 @@ public class QuestionsBackendBean {
         return correctAnswers;
     }
 
+    public void deleteQuestion() {
+        Map<String, String> parameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Long param = Long.parseLong(parameterMap.get("questionId"));
+        Question question = questionEJB.getQuestion(param);
+
+        questionEJB.removeQuestion(question);
+        // TODO move to bean or dao
+        quiz = quizEJB.getQuiz(quiz.getId());
+        List questions = quiz.getQuestions();
+        questions.remove(question);
+        quiz.setQuestions(questions);
+        quizEJB.editQuiz(quiz);
+    }
 }

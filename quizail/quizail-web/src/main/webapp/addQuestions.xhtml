@@ -10,29 +10,41 @@
         <h:panelGroup layout="block" styleClass="panel panel-default">
             <h:panelGroup styleClass="panel-heading" layout="block">Questions</h:panelGroup>
             <h:panelGroup styleClass="panel-body" layout="block">
-                <h:dataTable value="#{questionsBackendBean.quiz.questions}" var="question" styleClass="table">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Content"/>
-                        </f:facet>
-                        <h:outputText value="#{question.content}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Points"/>
-                        </f:facet>
-                        <h:outputText value="#{question.points}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Options"/>
-                        </f:facet>
-                        <ui:repeat value="#{question.options}" var="option">
-                            <h:outputText value="#{option.content}, "/>
-                        </ui:repeat>
-                    </h:column>
-                </h:dataTable>
-
+                <h:form>
+                    <h:dataTable value="#{questionsBackendBean.quiz.questions}" var="question" styleClass="table"
+                                 id="questions">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Content"/>
+                            </f:facet>
+                            <h:outputText value="#{question.content}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Points"/>
+                            </f:facet>
+                            <h:outputText value="#{question.points}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Options"/>
+                            </f:facet>
+                            <ui:repeat value="#{question.options}" var="option">
+                                <h:outputText value="#{option.content}, "/>
+                            </ui:repeat>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Delete"/>
+                            </f:facet>
+                            <h:commandLink action="#{questionsBackendBean.deleteQuestion}" styleClass="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove"/>
+                                <!--<f:ajax execute="@form" render="questions"/>-->
+                                <f:param name="questionId" value="#{question.id}"/>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
             </h:panelGroup>
         </h:panelGroup>
 

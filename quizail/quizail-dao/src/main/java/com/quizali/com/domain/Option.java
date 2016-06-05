@@ -1,5 +1,7 @@
 package com.quizali.com.domain;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,7 +18,7 @@ public class Option implements Serializable {
     @Column(nullable = false)
     private Boolean isCorrect;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Question question;
 
     public Long getId() {
@@ -49,5 +51,20 @@ public class Option implements Serializable {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Option option = (Option) o;
+        return Objects.equal(id, option.id) &&
+                Objects.equal(content, option.content) &&
+                Objects.equal(isCorrect, option.isCorrect);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, content, isCorrect);
     }
 }
