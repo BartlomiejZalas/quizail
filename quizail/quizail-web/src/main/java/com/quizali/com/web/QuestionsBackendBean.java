@@ -34,10 +34,6 @@ public class QuestionsBackendBean {
     private Boolean newOptionCorrect;
     private Quiz quiz;
 
-    @PostConstruct
-    public void init() {
-    }
-
     public String displayForm(Long quizId) {
         quiz = quizEJB.getQuiz(quizId);
         return "addQuestions";
