@@ -6,3 +6,17 @@ footer {
     margin: 5px 0;
     font-size: 11px;
 }
+
+.inlineRadioButtons {
+}
+
+.inlineRadioButtons label {
+    display: inline;
+}
+
+.timer {
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+
+}

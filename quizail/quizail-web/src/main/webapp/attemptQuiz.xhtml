@@ -1,11 +1,76 @@
 <ui:composition template="/pageTemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="title">Attempt quiz</ui:define>
 
     <ui:define name="content">
-        Attempt quiz
+        <script type="text/javascript">
+            function printTime(time) {
+                var minutes = Math.floor(time / 60);
+                var seconds = time - minutes * 60;
+
+                if (seconds &lt; 10) {
+                    seconds = "0"+seconds;
+                }
+
+                return minutes+":"+seconds;
+            }
+
+            $(window).ready(function () {
+                var time = 60 * #{attemptBackendBean.quizToSolve.time};
+                setInterval(function () {
+                    time--;
+                    $('.timer strong').html(printTime(time));
+                    if (time === 0) {
+                        $('.hiddenFinish').click();
+                    }
+                }, 1000);
+            });
+        </script>
+
+
+        <h:form id="quizAttemptForm">
+            <h:panelGroup layout="block" id="header">
+                <h1>Question #{attemptBackendBean.currentQuestionIndex + 1} / #{attemptBackendBean.totalQuestions}</h1>
+            </h:panelGroup>
+
+            <p class="timer text-center" style="text-size:20px">Remaining time: <strong></strong></p>
+
+            <p>#{attemptBackendBean.currentQuestion.content}</p>
+            <p>
+            <h:selectOneRadio value="#{attemptBackendBean.optionToSaveIndex}" styleClass="inlineRadioButtons">
+                <f:selectItems value="#{attemptBackendBean.currentQuestion.options}" var="o" itemLabel="#{o.content}"
+                               itemValue="#{attemptBackendBean.currentQuestion.options.indexOf(o)}"/>
+            </h:selectOneRadio>
+            </p>
+
+            <h:panelGroup layout="block" style="padding-top: 10px;">
+                <h:commandLink value="Previous" action="#{attemptBackendBean.previousQuestion}"
+                               styleClass="btn btn-primary"
+                               rendered="#{!(attemptBackendBean.currentQuestionIndex == 0)}">
+                    <f:ajax execute="@form" render="quizAttemptForm"/>
+                </h:commandLink>
+
+                <h:commandLink value="Next" action="#{attemptBackendBean.nextQuestion}"
+                               styleClass="btn btn-primary"
+                               rendered="#{!(attemptBackendBean.currentQuestionIndex == (attemptBackendBean.totalQuestions - 1))}">
+                    <f:ajax execute="@form" render="quizAttemptForm"/>
+                </h:commandLink>
+
+                <h:commandLink value="Finish Quiz" action="#{attemptBackendBean.finishQuiz}"
+                               styleClass="btn btn-primary"
+                               onclick="return confirm('Are you sure you want to finish the quiz?')"/>
+
+                <h:commandLink value="" styleClass="hiddenFinish" action="#{attemptBackendBean.finishQuiz}"
+                               style="visibility: hidden"/>
+
+
+            </h:panelGroup>
+        </h:form>
+
     </ui:define>
 
     <ui:define name="menu">
