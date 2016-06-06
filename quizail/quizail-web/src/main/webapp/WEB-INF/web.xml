@@ -10,7 +10,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
         <load-on-startup>1</load-on-startup>
     </servlet>
     <welcome-file-list>
-        <welcome-file>mainPage.xhtml</welcome-file>
+        <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
